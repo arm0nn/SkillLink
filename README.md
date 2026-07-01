@@ -39,10 +39,3 @@ A Flutter job listings app for the Malaysian market, backed by Firebase
 - `users/{uid}/savedJobs/{jobId}` — bookmark subcollection
 - `applications/{applicationId}` — fields: `jobId`, `jobTitle`, `company`,
   `seekerId`, `status`, `appliedAt`
-
-## Project structure
-
-Matches the structure your team agreed on — see folder layout in
-`lib/`. Each screen/service/model file has inline `NOTE for team:`
-comments wherever a decision was made that you should sanity-check
-rather than just inherit silently.
