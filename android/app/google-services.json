@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "661143409008",
+    "project_id": "skilllinkapptest",
+    "storage_bucket": "skilllinkapptest.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661143409008:android:c20d5c0369f4f376667fb5",
+        "android_client_info": {
+          "package_name": "com.example.skilllink_app_test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWiHEs9v5Eox4EZh-SnQGJkBo2Qhm4RYo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
