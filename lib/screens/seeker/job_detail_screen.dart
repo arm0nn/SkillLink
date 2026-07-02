@@ -6,6 +6,8 @@ import '../../models/job_model.dart';
 import '../../services/database_service.dart';
 import '../../widgets/custom_button.dart';
 
+// displays the full details of a single job and allows the user to apply
+// the job data is obtained from the constructor 
 class JobDetailScreen extends StatefulWidget {
   final JobModel job;
 
@@ -16,11 +18,21 @@ class JobDetailScreen extends StatefulWidget {
 }
 
 class _JobDetailScreenState extends State<JobDetailScreen> {
+  // service for database operations when applying for a job
   final DatabaseService _db = DatabaseService();
+
+  // to show a loading spinner on the apply button while the request is in progress
   bool _isApplying = false;
+
+  // to indicate whether the user has already applied to this job
+  // if it's true, the apply button becomes disabled and shows "Applied ✓"
   bool _hasApplied = false;
 
+  // APPLY LOGIC
+  // handles the job application process.
+  // checks for if the user is signed in, then calls the database service to create an application
   Future<void> _handleApply() async {
+    // 1. ensures the user is signed in
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -29,14 +41,19 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
       return;
     }
 
+    // 2. shows the loading state (disable button, show spinner)
     setState(() => _isApplying = true);
+
     try {
+      // 3. call the database service to create the application document
       await _db.applyToJob(
         jobId: widget.job.id,
         jobTitle: widget.job.title,
         company: widget.job.company,
         seekerId: uid,
       );
+
+      // 4. once successful, update the UI and show a confirmation message
       if (mounted) {
         setState(() {
           _hasApplied = true;
@@ -47,6 +64,7 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
         );
       }
     } catch (e) {
+      // 5. if unsuccessful, hide the loading state and show an error message
       if (mounted) {
         setState(() => _isApplying = false);
         ScaffoldMessenger.of(context).showSnackBar(
@@ -56,6 +74,7 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
     }
   }
 
+  // BUILD METHOD
   @override
   Widget build(BuildContext context) {
     final job = widget.job;
@@ -78,6 +97,8 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // JOB DETAILS CARD
+            // white card with displaying the job's title, company, location, and status.
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
@@ -88,18 +109,21 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // job Title (large, bold)
                   Text(job.title,
                       style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w800,
                           color: AppConfig.textDark)),
                   const SizedBox(height: 6),
+                  // company Name (medium, muted)
                   Text(job.company,
                       style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
                           color: AppConfig.textMuted)),
                   const SizedBox(height: 16),
+                  // location row
                   Row(
                     children: [
                       const Icon(Icons.location_on_outlined,
@@ -111,6 +135,7 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                     ],
                   ),
                   const SizedBox(height: 10),
+                  // status row ("open", "closed")
                   Row(
                     children: [
                       const Icon(Icons.info_outline_rounded,
@@ -125,6 +150,9 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
               ),
             ),
             const SizedBox(height: 24),
+
+            // APPLY BUTTON
+            // CustomButton that changes label if the user has applied or has not applied, and shows loading spinner during application process
             CustomButton(
               label: _hasApplied ? 'Applied ✓' : 'Apply Now',
               onPressed: _hasApplied ? null : _handleApply,
