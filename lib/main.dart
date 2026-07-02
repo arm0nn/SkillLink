@@ -1,26 +1,33 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
-import 'screens/login_screen.dart';
-import 'screens/register_screen.dart';
-import 'screens/job_seeker_dashboard.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'firebase_options.dart';
+import 'config/app_config.dart';
+import 'providers/auth_provider.dart';
+import 'screens/auth/splash_screen.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const SkillLinkApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class SkillLinkApp extends StatelessWidget {
+  const SkillLinkApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'SkillLink',
-      home: const LoginScreen(),
-      routes: {
-        '/login': (context) => const LoginScreen(),
-        '/register': (context) => const RegisterScreen(),
-        '/dashboard': (context) => const JobSeekerDashboard(),
-      },
+    return ChangeNotifierProvider(
+      create: (_) => AppAuthProvider(),
+      child: MaterialApp(
+        title: AppConfig.appName,
+        debugShowCheckedModeBanner: false,
+        theme: AppConfig.theme(),
+        home: const SplashScreen(),
+      ),
     );
   }
 }
