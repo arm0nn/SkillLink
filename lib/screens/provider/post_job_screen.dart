@@ -8,11 +8,7 @@ import '../../utils/validators.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_textfield.dart';
 
-/// NOTE for team: JobModel has title/company/location/status/providerId
-/// (no salary, type, or tags). This form only collects what the model
-/// supports. providerId is set automatically from the signed-in user —
-/// not a form field. If you extend JobModel with more fields, add
-/// matching inputs here.
+
 class PostJobScreen extends StatefulWidget {
   const PostJobScreen({super.key});
 
