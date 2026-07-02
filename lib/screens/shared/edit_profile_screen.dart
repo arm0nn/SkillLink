@@ -7,9 +7,7 @@ import '../../providers/auth_provider.dart';
 import '../../utils/validators.dart';
 import '../../widgets/custom_button.dart';
 
-/// NOTE for team: photoUrl / resumeUrl updates need Firebase Storage
-/// (upload file -> get download URL -> save URL here). That's not wired
-/// up yet — this screen only edits the name field for now.
+// screen that allows users to edit profile  
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
 
@@ -18,37 +16,52 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  // form key used to validate all form fields before saving.
   final _formKey = GlobalKey<FormState>();
+
+  // Controller for holding the current text in the input field
   late final TextEditingController _nameController;
+
+  // to disable thet save button for a while when saving name, and showing loading animation
   bool _isSaving = false;
 
   @override
   void initState() {
     super.initState();
+    // read the current user profile from the auth provider (without listening to rebuilds)
+    // pre-fill the text box with the current name, or if there's no name, use empty string
     final user = context.read<AppAuthProvider>().userProfile;
     _nameController = TextEditingController(text: user?.name ?? '');
   }
 
   @override
   void dispose() {
+    // clean up controller to prevent memory leaks   
     _nameController.dispose();
     super.dispose();
   }
 
+  // handling the save action: validates input, updates Firestore
+  // shows feedback, and navigates back on success.
   Future<void> _handleSave() async {
+    // form validation, if invalid, it stops here
     if (!_formKey.currentState!.validate()) return;
 
+    // get the current user ID from auth provider, if there's no user, exit early
     final uid = context.read<AppAuthProvider>().firebaseUser?.uid;
     if (uid == null) return;
 
+    // showing loading state (disable button / show spinner).
     setState(() => _isSaving = true);
 
     try {
+      // update the user's document in Firestore with the new name
       await FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
           .update({'name': _nameController.text.trim()});
 
+      // if the widget is still mounted, navigate back and show a success message.
       if (mounted) {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
@@ -56,6 +69,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         );
       }
     } catch (e) {
+      // if there's an error, hide the loading state and show an error message.
       if (mounted) {
         setState(() => _isSaving = false);
         ScaffoldMessenger.of(context).showSnackBar(
@@ -68,10 +82,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // app bar with back arrow and title "Edit Profile"
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded, color: AppConfig.textDark),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pop(context), // Dismiss the screen.
         ),
         title: const Text('Edit Profile',
             style: TextStyle(
@@ -82,11 +97,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Form(
-          key: _formKey,
+          key: _formKey, // associates the form with the validation key.
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ─── TextFormField with a clear black border ──────────────────
+              // TexFormField with "Name" title
+              // a single input field for the user's full name.
+              // the validator ensures the field is not empty.
               TextFormField(
                 controller: _nameController,
                 decoration: const InputDecoration(
@@ -101,13 +118,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black, width: 1.5),
                   ),
-                  // Optional: fill the background white for contrast
-                  filled: true,
+                  filled: true,       // White background for better readability.
                   fillColor: Colors.white,
                 ),
                 validator: (v) => Validators.required(v, fieldName: 'Name'),
               ),
               const SizedBox(height: 28),
+
+              // the SAVE button   
+              // CustomButton shows a loading spinner when _isSaving is true.
+              // Pressing it triggers the _handleSave logic.
               CustomButton(
                 label: 'Save Changes',
                 onPressed: _handleSave,
