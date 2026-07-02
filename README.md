@@ -7,7 +7,7 @@
 | Arman Irfan Bin 'Azim | 2216101 | Job Seeker Pages, Profile Page, Edit Profile Page. **CODES:** `applications_screen.dart`, `job_detail_screen.dart`, `job_feed_screen.dart`, `seeker_dashboard.dart`, `profile_screen.dart`, `edit_profile_screen.dart`|
 | Aminul Shahir Bin Mohd Aminuddin | 2228907 | Landing Page + Register & Log in Page + Authentication. **CODES:** `lib/screens/auth/splash_screen.dart`, `landing_screen.dart`, `login_screen.dart`, `register_screen.dart`, `providers/auth_provider.dart`, `services/auth_service.dart`, `widgets/custom_button.dart`, `custom_textfield.dart` `config/app_config.dart`, `utils/validators.dart` |
 | Amir Fauzi Bin Ne'mat | 2220659 | Job Posting Page + Firebase Integration. **CODES:** `lib/screens/provider/post_job_screen.dart`, `my_jobs_screen.dart, applicants_screen.dart`, `services/database_service.dart`, `services/auth_service.dart`, `firebase_options.dart, models (job_model.dart, application_model.dart)` |
-| Ali Ilhan Thani Bin Jalaludin | 2222253 | job seeker/provider dashboard **CODES:** ???? |
+| Ali Ilhan Thani Bin Jalaludin | 2222253 | Job Provider Pages. Profile Page, Edit Progile Page **CODES:** `applicants_screen.dart`, `my_jobs_screen.dart`, `post_job_screen.dart`, `provider_dashboard.dart`|
 
 ---
 
@@ -35,22 +35,21 @@ A combination of study and looking for part-time work is not without its respons
 ---
 
 ## 2. Requirement Analysis and Planning
-## Features and Functionality
+## CRUD Operation Analysis
 **Job Provider:**
 
-1. Create account.
-2. Browse available jobs. (new posted jobs are loaded instantly - no refresh needed)
-3. Keep track of applied jobs.
-4. Customize profile name.
+1. Create account. (job seeker)
+2. Read the posted jobs.
+3. Update the name of the user. (job seeker)
 
 **Job Providers:**
 
-1. Create account.
-2. Post jobs. (including location specification)
-3. Keep track of posted jobs.
-4. Keep track of applicants for each posted jobs.
+1. Create account. (job provider)
+2. Create jobs - post jobs. (including location specification)
+3. Read - Keep track of posted jobs.
+4. Read - Keep track of applicants for each posted jobs.
 5. Update applicant's status. (reviewed, rejected, succesful)
-6. Customize profile name.
+6. Update - Customize profile name.
 
 ---
 
@@ -94,7 +93,7 @@ A combination of study and looking for part-time work is not without its respons
   `seekerId`, `status`, `appliedAt`
 
 ---
-
+## 3. Project Design
 ## Screen Navigation Flow Diagram
 
 <p align="center">
@@ -102,8 +101,6 @@ A combination of study and looking for part-time work is not without its respons
     <img src="diagrams/Screen Flow Diagram.png" alt="Diagram" width="600">
   </a>
 </p>
-
----
 
 ## Gantt Chart
 
@@ -114,3 +111,12 @@ A combination of study and looking for part-time work is not without its respons
 </p>
 
 ---
+
+## References
+- Add data to Cloud Firestore. (n.d.). Firebase. Retrieved February 2, 2026, from https://firebase.google.com/docs/firestore/manage-data/add-data
+
+- BottomNavigationBar class—Material library—Dart API. (n.d.). Retrieved February 2, 2026, from https://api.flutter.dev/flutter/material/BottomNavigationBar-class.html
+
+- Navigation and routing. (n.d.). Retrieved February 2, 2026, from https://docs.flutter.dev/ui/ui/navigation/index.md
+
+- Wrap class—Widgets library—Dart API. (n.d.). Retrieved February 2, 2026, from https://api.flutter.dev/flutter/widgets/Wrap-class.html
