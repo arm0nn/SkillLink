@@ -6,15 +6,20 @@ import '../../providers/auth_provider.dart';
 import '../../widgets/custom_button.dart';
 import 'edit_profile_screen.dart';
 
+// profile screen displays current user profile information  
+// stateless widget that listens to AppAuthProvider for any user profile changes
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // listen to AppAuthProvider and rebuild whenever the user profile changes
     return Consumer<AppAuthProvider>(
       builder: (context, auth, _) {
         final user = auth.userProfile;
 
+        // placeholder message is shown if user is not signed in
+        // unauthenticated state is handled gracefully
         if (user == null) {
           return const Center(
             child: Text('Sign in to view your profile',
@@ -22,10 +27,12 @@ class ProfileScreen extends StatelessWidget {
           );
         }
 
+        // the main profile screen for the authenticated user
         return SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
+              // Profile avatar shows a person icon with a blue background circle.
               CircleAvatar(
                 radius: 44,
                 backgroundColor: AppConfig.primaryBlue.withOpacity(0.1),
@@ -37,45 +44,22 @@ class ProfileScreen extends StatelessWidget {
                     : null,
               ),
               const SizedBox(height: 14),
+
+              // user's name 
               Text(user.name,
                   style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w800,
                       color: AppConfig.textDark)),
               const SizedBox(height: 4),
+
+              // user's email address
               Text(user.email,
                   style:
                       const TextStyle(fontSize: 13, color: AppConfig.textMuted)),
               const SizedBox(height: 24),
 
-              // Only show the resume card if a resume exists
-              if (user.resumeUrl != null)
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppConfig.cardBorder),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.description_outlined,
-                          color: AppConfig.primaryBlue),
-                      const SizedBox(width: 10),
-                      const Expanded(
-                          child: Text('Resume uploaded',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppConfig.textDark))),
-                      const Icon(Icons.chevron_right_rounded,
-                          color: AppConfig.textFaint),
-                    ],
-                  ),
-                ),
-
-              const SizedBox(height: 24),
+              // edit profile button that goes to edit_profile_screen
               CustomButton(
                 label: 'Edit Profile',
                 icon: Icons.edit_outlined,
