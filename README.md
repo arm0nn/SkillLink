@@ -3,6 +3,15 @@
 A Flutter job listings app for the Malaysian market, backed by Firebase
 (Auth + Firestore).
 
+## Group Members
+**Group Name:** Barca
+| Name | Matric No | Assigned Tasks |
+| ---- | --------- | ------------- |
+| Arman Irfan Bin Azim | 2216101 | job provider seeker/provider dashboard. **CODES:** ???? |
+| Aminul Shahir Bin Mohd Aminuddin | 2228907 | login/register **CODES:** ???? |
+| Amir Fauzi Bin Ne'mat | 2220659 | Job Posting Page + Firebase Integration **CODES:** lib/screens/provider/post_job_screen.dart, my_jobs_screen.dart, applicants_screen.dart, services/database_service.dart, services/auth_service.dart, firebase_options.dart, models (job_model.dart, application_model.dart) |
+| Ali Ilhan Thani Bin Jalaludin | 2222253 | job seeker/provider dashboard **CODES:** ???? |
+
 ## Setup
 
 1. **Create a Firebase project** at console.firebase.google.com.
