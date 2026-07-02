@@ -4,11 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../models/user_model.dart';
 import '../services/auth_service.dart';
 
-/// Holds the current user's auth state + Firestore profile, and notifies
-/// listeners on change. Wrap MaterialApp with ChangeNotifierProvider for
-/// this in main.dart (see lib/main.dart).
-///
-/// Requires the `provider` package: provider: ^6.1.0
+
 class AppAuthProvider extends ChangeNotifier {
   final AuthService _authService = AuthService();
 
