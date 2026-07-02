@@ -1,18 +1,15 @@
-// lib/services/database_service.dart
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/job_model.dart';
 import '../models/application_model.dart';
 
 /// Single shared place for Firestore reads/writes.
-/// Add to this file as new screens need new operations — avoid writing
-/// Firestore calls directly inside widgets.
 class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   CollectionReference get _jobsRef => _db.collection('jobs');
   CollectionReference get _applicationsRef => _db.collection('applications');
 
-  // ─── Jobs (seeker: job_feed_screen, provider: my_jobs_screen) ───
+  // Jobs (seeker: job_feed_screen, provider: my_jobs_screen) 
 
   Stream<List<JobModel>> getJobsStream() {
     return _jobsRef.snapshots().map((snapshot) => snapshot.docs
@@ -21,7 +18,7 @@ class DatabaseService {
         .toList());
   }
 
-  /// Jobs posted by a specific provider (provider/my_jobs_screen.dart).
+  /// Jobs posted by a specific provider
   Stream<List<JobModel>> getJobsByProviderStream(String providerId) {
     return _jobsRef
         .where('providerId', isEqualTo: providerId)
@@ -39,7 +36,7 @@ class DatabaseService {
 
   Future<void> deleteJob(String jobId) => _jobsRef.doc(jobId).delete();
 
-  // ─── Saved jobs (seeker bookmarks) ───
+  // Saved jobs (seeker bookmarks)
 
   Future<void> saveJob(String uid, String jobId) async {
     await _db
@@ -68,7 +65,7 @@ class DatabaseService {
         .map((snapshot) => snapshot.docs.map((d) => d.id).toSet());
   }
 
-  // ─── Applications (seeker: applications_screen, provider: applicants_screen) ───
+  // Applications
 
   Future<void> applyToJob({
     required String jobId,
@@ -88,7 +85,7 @@ class DatabaseService {
     await _applicationsRef.add(application.toMap());
   }
 
-  /// Applications submitted by a seeker (seeker/applications_screen.dart).
+  /// Applications submitted by a seeker
   Stream<List<ApplicationModel>> getApplicationsBySeekerStream(String seekerId) {
     return _applicationsRef
         .where('seekerId', isEqualTo: seekerId)
@@ -99,7 +96,7 @@ class DatabaseService {
             .toList());
   }
 
-  /// Applicants for a specific job (provider/applicants_screen.dart).
+  /// Applicants for a specific job
   Stream<List<ApplicationModel>> getApplicantsForJobStream(String jobId) {
     return _applicationsRef
         .where('jobId', isEqualTo: jobId)
