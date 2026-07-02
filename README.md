@@ -4,7 +4,7 @@
 **Group Name:** Barca
 | Name | Matric No | Assigned Tasks |
 | ---- | --------- | ------------- |
-| Arman Irfan Bin Azim | 2216101 | job provider seeker/provider dashboard. **CODES:** ???? |
+| Arman Irfan Bin 'Azim | 2216101 | Job Seeker Pages **CODES:** ???? |
 | Aminul Shahir Bin Mohd Aminuddin | 2228907 | Landing Page + Register & Log in Page + Authentication **CODES:** `lib/screens/auth/splash_screen.dart`, `landing_screen.dart`, `login_screen.dart`, `register_screen.dart`, `providers/auth_provider.dart`, `services/auth_service.dart`, `widgets/custom_button.dart`, `custom_textfield.dart` `config/app_config.dart`, `utils/validators.dart` |
 | Amir Fauzi Bin Ne'mat | 2220659 | Job Posting Page + Firebase Integration. **CODES:** `lib/screens/provider/post_job_screen.dart`, `my_jobs_screen.dart, applicants_screen.dart`, `services/database_service.dart`, `services/auth_service.dart`, `firebase_options.dart, models (job_model.dart, application_model.dart)` |
 | Ali Ilhan Thani Bin Jalaludin | 2222253 | job seeker/provider dashboard **CODES:** ???? |
