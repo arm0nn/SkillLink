@@ -1,5 +1,5 @@
 # SkillLink
-
+---
 ## Group Members
 **Group Name:** Barca
 | Name | Matric No | Assigned Tasks |
@@ -8,6 +8,8 @@
 | Aminul Shahir Bin Mohd Aminuddin | 2228907 | Landing Page + Register & Log in Page + Authentication **CODES:** `lib/screens/auth/splash_screen.dart`, `landing_screen.dart`, `login_screen.dart`, `register_screen.dart`, `providers/auth_provider.dart`, `services/auth_service.dart`, `widgets/custom_button.dart`, `custom_textfield.dart` `config/app_config.dart`, `utils/validators.dart` |
 | Amir Fauzi Bin Ne'mat | 2220659 | Job Posting Page + Firebase Integration. **CODES:** `lib/screens/provider/post_job_screen.dart`, `my_jobs_screen.dart, applicants_screen.dart`, `services/database_service.dart`, `services/auth_service.dart`, `firebase_options.dart, models (job_model.dart, application_model.dart)` |
 | Ali Ilhan Thani Bin Jalaludin | 2222253 | job seeker/provider dashboard **CODES:** ???? |
+
+---
 
 ## Setup
 
@@ -36,6 +38,26 @@
    ```bash
    flutter run
    ```
+---
+
+## Features and Functionality
+**Job Provider:**
+
+1. Create account.
+2. Browse available jobs. (new posted jobs are loaded instantly - no refresh needed)
+3. Keep track of applied jobs.
+4. Customize profile name.
+
+**Job Providers:**
+
+1. Create account.
+2. Post jobs. (including location specification)
+3. Keep track of posted jobs.
+4. Keep track of applicants for each posted jobs.
+5. Update applicant's status. (reviewed, rejected, succesful)
+6. Customize profile name.
+
+---
 
 ## Firestore collections this app expects
 
@@ -45,3 +67,19 @@
 - `users/{uid}/savedJobs/{jobId}` — bookmark subcollection
 - `applications/{applicationId}` — fields: `jobId`, `jobTitle`, `company`,
   `seekerId`, `status`, `appliedAt`
+
+---
+
+## Screen Navigation Flow Diagram
+
+<p align="center">
+  <a href="diagrams/Screen Flow Diagram.png">
+    <img src="diagrams/Screen Flow Diagram.png" alt="Diagram" width="600">
+  </a>
+</p>
+
+---
+
+## Gantt Chart
+
+---
