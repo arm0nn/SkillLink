@@ -82,4 +82,10 @@
 
 ## Gantt Chart
 
+<p align="center">
+  <a href="diagrams/Screen SINI SHAHIR.png">
+    <img src="diagrams/SINI SHAHIR.png" alt="Diagram" width="600">
+  </a>
+</p>
+
 ---
