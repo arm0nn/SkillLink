@@ -11,6 +11,49 @@
 
 ---
 
+## 1. Project Ideation and Initiation
+
+**Title :** SkillLink
+
+**Background of the Problem :** 
+A combination of study and looking for part-time work is not without its responsibilities. Students may have to manage their limited free time with the pressures of the job search. This is particularly true if you are applying for more than one part-time job that has varying schedules and requirements. Students often overlook deadlines, interview schedules, and confirmations of shifts and more, only to discover the missed deadline later when the information has been forgotten or is buried in a jumble of notes on various platforms at different locations. Another common problem is that they don't have tools to monitor application progress or employer's response, which could enable students to keep track of their job search effectively while they're enrolled in school.
+
+**The objectives of the App are :**
+- Centralize job application management, interview schedules and employer communications.
+- Help students stay on top of deadlines and follow-ups through reminders.
+- Facilitate monitoring of application progress to determine progress and next steps at a point of real-time.
+- Assist employers to post part-time positions easily, manage applicants and communicate updates to applicants.
+
+**Target Users :** Students looking for part-time work opportunities and employers looking for part-time employees.
+
+**Preferred Platform :** Mobile application. Developed using Dart and Flutter.
+
+**Features and Functionality :** 
+- **Profile :** Both job seekers and job providers have profile pages. Both types of pages show the name and email.
+- **Dashboard :** For the job seekers, it shows the current available jobs on the market, and also shows pending applications made by the seekers. For the job providers, it shows the list of jobs that they have posted and shows the users that have applied to their jobs.
+
+---
+
+## 2. Requirement Analysis and Planning
+## Features and Functionality
+**Job Provider:**
+
+1. Create account.
+2. Browse available jobs. (new posted jobs are loaded instantly - no refresh needed)
+3. Keep track of applied jobs.
+4. Customize profile name.
+
+**Job Providers:**
+
+1. Create account.
+2. Post jobs. (including location specification)
+3. Keep track of posted jobs.
+4. Keep track of applicants for each posted jobs.
+5. Update applicant's status. (reviewed, rejected, succesful)
+6. Customize profile name.
+
+---
+
 ## Setup
 
 1. **Create a Firebase project** at console.firebase.google.com.
@@ -38,24 +81,6 @@
    ```bash
    flutter run
    ```
----
-
-## Features and Functionality
-**Job Provider:**
-
-1. Create account.
-2. Browse available jobs. (new posted jobs are loaded instantly - no refresh needed)
-3. Keep track of applied jobs.
-4. Customize profile name.
-
-**Job Providers:**
-
-1. Create account.
-2. Post jobs. (including location specification)
-3. Keep track of posted jobs.
-4. Keep track of applicants for each posted jobs.
-5. Update applicant's status. (reviewed, rejected, succesful)
-6. Customize profile name.
 
 ---
 
