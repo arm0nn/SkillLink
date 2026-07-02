@@ -5,12 +5,7 @@ import '../../widgets/custom_button.dart';
 import '../seeker/seeker_dashboard.dart';
 import '../provider/provider_dashboard.dart';
 
-/// NOTE for team: NOT currently used. Role is now chosen via a toggle
-/// directly on register_screen.dart, saved to UserModel.role at signup,
-/// and splash_screen.dart branches on it after login. This screen is
-/// dead code for now — kept around in case you later want a "switch
-/// role" or "add a second role to my account" flow, which would need
-/// this screen (or something like it) wired in separately.
+
 class RoleSelectionScreen extends StatelessWidget {
   const RoleSelectionScreen({super.key});
 
