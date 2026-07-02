@@ -58,16 +58,6 @@ class _SeekerDashboardState extends State<SeekerDashboard> {
               setState(() => _tabIndex = 2);
             },
           ),
-          DrawerMenuItem(
-            icon: Icons.help_outline_rounded,
-            label: 'Help & Support',
-            onTap: () {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Help & Support — coming soon')),
-              );
-            },
-          ),
         ],
       ),
       body: _tabs[_tabIndex],
