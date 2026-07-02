@@ -3,12 +3,7 @@ import 'package:flutter/material.dart';
 import '../../config/app_config.dart';
 import '../../widgets/custom_button.dart';
 
-/// Marketing/welcome screen shown once, before LoginScreen, the first time
-/// someone opens the app with no active session.
-///
-/// This is self-contained — it doesn't read or react to AppAuthProvider at
-/// all. It just shows a "Get Started" button that flips a flag in
-/// SplashScreen to move on to Login. Plug it in by passing onGetStarted.
+
 class LandingScreen extends StatelessWidget {
   final VoidCallback onGetStarted;
 
