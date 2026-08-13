@@ -1,8 +1,6 @@
 // lib/screens/auth/landing_screen.dart
 import 'package:flutter/material.dart';
 import '../../config/app_config.dart';
-import '../../widgets/custom_button.dart';
-
 
 class LandingScreen extends StatelessWidget {
   final VoidCallback onGetStarted;
@@ -116,8 +114,8 @@ class LandingScreen extends StatelessWidget {
                     ),
                     child: const Text(
                       'Get Started',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w800, fontSize: 16),
+                      style:
+                          TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
                     ),
                   ),
                 ),

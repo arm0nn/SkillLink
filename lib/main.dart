@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'firebase_options.dart';
 import 'config/app_config.dart';
-import 'providers/auth_provider.dart';
+import 'providers/app_state.dart';
 import 'screens/auth/splash_screen.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+void main() {
   runApp(const SkillLinkApp());
 }
 
@@ -20,7 +14,7 @@ class SkillLinkApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => AppAuthProvider(),
+      create: (_) => AppState(),
       child: MaterialApp(
         title: AppConfig.appName,
         debugShowCheckedModeBanner: false,

@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../config/app_config.dart';
-import '../../providers/auth_provider.dart';
+import '../../providers/app_state.dart';
 import '../provider/provider_dashboard.dart';
 import '../seeker/seeker_dashboard.dart';
 import 'landing_screen.dart';
@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppAuthProvider>(
+    return Consumer<AppState>(
       builder: (context, auth, _) {
         if (auth.isLoading) {
           return const _SplashLoading();

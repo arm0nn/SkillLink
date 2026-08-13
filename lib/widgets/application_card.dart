@@ -49,12 +49,14 @@ class ApplicationCard extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   application.company,
-                  style: const TextStyle(fontSize: 12, color: AppConfig.textMuted),
+                  style:
+                      const TextStyle(fontSize: 12, color: AppConfig.textMuted),
                 ),
                 const SizedBox(height: 6),
                 Text(
                   'Applied ${DateFormatter.relative(application.appliedAt)}',
-                  style: const TextStyle(fontSize: 11, color: AppConfig.textFaint),
+                  style:
+                      const TextStyle(fontSize: 11, color: AppConfig.textFaint),
                 ),
               ],
             ),

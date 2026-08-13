@@ -1,10 +1,8 @@
 // lib/screens/auth/role_selection_screen.dart
 import 'package:flutter/material.dart';
 import '../../config/app_config.dart';
-import '../../widgets/custom_button.dart';
 import '../seeker/seeker_dashboard.dart';
 import '../provider/provider_dashboard.dart';
-
 
 class RoleSelectionScreen extends StatelessWidget {
   const RoleSelectionScreen({super.key});

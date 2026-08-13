@@ -28,7 +28,8 @@ class JobCard extends StatelessWidget {
       const Color(0xFF0891B2),
     ];
     if (job.company.isEmpty) return colors[0];
-    final index = job.company.codeUnits.fold(0, (a, b) => a + b) % colors.length;
+    final index =
+        job.company.codeUnits.fold(0, (a, b) => a + b) % colors.length;
     return colors[index];
   }
 

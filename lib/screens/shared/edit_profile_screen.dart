@@ -1,13 +1,12 @@
 // lib/screens/shared/edit_profile_screen.dart
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import '../../config/app_config.dart';
-import '../../providers/auth_provider.dart';
+import '../../providers/app_state.dart';
 import '../../utils/validators.dart';
 import '../../widgets/custom_button.dart';
 
-// screen that allows users to edit profile  
+// screen that allows users to edit profile
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
 
@@ -30,36 +29,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.initState();
     // read the current user profile from the auth provider (without listening to rebuilds)
     // pre-fill the text box with the current name, or if there's no name, use empty string
-    final user = context.read<AppAuthProvider>().userProfile;
+    final user = context.read<AppState>().userProfile;
     _nameController = TextEditingController(text: user?.name ?? '');
   }
 
   @override
   void dispose() {
-    // clean up controller to prevent memory leaks   
+    // clean up controller to prevent memory leaks
     _nameController.dispose();
     super.dispose();
   }
 
-  // handling the save action: validates input, updates Firestore
+  // Handles the save action and updates the local prototype state.
   // shows feedback, and navigates back on success.
   Future<void> _handleSave() async {
     // form validation, if invalid, it stops here
     if (!_formKey.currentState!.validate()) return;
 
     // get the current user ID from auth provider, if there's no user, exit early
-    final uid = context.read<AppAuthProvider>().firebaseUser?.uid;
-    if (uid == null) return;
-
     // showing loading state (disable button / show spinner).
     setState(() => _isSaving = true);
 
     try {
-      // update the user's document in Firestore with the new name
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .update({'name': _nameController.text.trim()});
+      context.read<AppState>().updateName(_nameController.text.trim());
 
       // if the widget is still mounted, navigate back and show a success message.
       if (mounted) {
@@ -118,14 +110,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black, width: 1.5),
                   ),
-                  filled: true,       // White background for better readability.
+                  filled: true, // White background for better readability.
                   fillColor: Colors.white,
                 ),
                 validator: (v) => Validators.required(v, fieldName: 'Name'),
               ),
               const SizedBox(height: 28),
 
-              // the SAVE button   
+              // the SAVE button
               // CustomButton shows a loading spinner when _isSaving is true.
               // Pressing it triggers the _handleSave logic.
               CustomButton(

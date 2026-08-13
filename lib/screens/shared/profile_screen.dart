@@ -2,19 +2,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../config/app_config.dart';
-import '../../providers/auth_provider.dart';
+import '../../providers/app_state.dart';
 import '../../widgets/custom_button.dart';
 import 'edit_profile_screen.dart';
 
-// profile screen displays current user profile information  
-// stateless widget that listens to AppAuthProvider for any user profile changes
+// profile screen displays current user profile information
+// Stateless profile screen that listens to the in-memory prototype state.
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // listen to AppAuthProvider and rebuild whenever the user profile changes
-    return Consumer<AppAuthProvider>(
+    // Rebuild whenever the local profile changes.
+    return Consumer<AppState>(
       builder: (context, auth, _) {
         final user = auth.userProfile;
 
@@ -45,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 14),
 
-              // user's name 
+              // user's name
               Text(user.name,
                   style: const TextStyle(
                       fontSize: 18,
@@ -55,8 +55,8 @@ class ProfileScreen extends StatelessWidget {
 
               // user's email address
               Text(user.email,
-                  style:
-                      const TextStyle(fontSize: 13, color: AppConfig.textMuted)),
+                  style: const TextStyle(
+                      fontSize: 13, color: AppConfig.textMuted)),
               const SizedBox(height: 24),
 
               // edit profile button that goes to edit_profile_screen
@@ -66,7 +66,8 @@ class ProfileScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const EditProfileScreen()),
+                    MaterialPageRoute(
+                        builder: (_) => const EditProfileScreen()),
                   );
                 },
               ),

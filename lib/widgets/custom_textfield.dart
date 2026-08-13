@@ -48,7 +48,8 @@ class CustomTextField extends StatelessWidget {
           style: const TextStyle(fontSize: 14, color: AppConfig.textDark),
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: const TextStyle(color: AppConfig.textFaint, fontSize: 14),
+            hintStyle:
+                const TextStyle(color: AppConfig.textFaint, fontSize: 14),
             prefixIcon: prefixIcon != null
                 ? Icon(prefixIcon, color: AppConfig.textFaint, size: 20)
                 : null,
@@ -67,7 +68,8 @@ class CustomTextField extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: AppConfig.primaryBlue, width: 1.5),
+              borderSide:
+                  const BorderSide(color: AppConfig.primaryBlue, width: 1.5),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),

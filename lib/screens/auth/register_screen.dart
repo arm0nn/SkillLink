@@ -1,9 +1,8 @@
 // lib/screens/auth/register_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../../config/app_config.dart';
-import '../../providers/auth_provider.dart';
+import '../../providers/app_state.dart';
 import '../../utils/validators.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_textfield.dart';
@@ -47,7 +46,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
 
     try {
-      await context.read<AppAuthProvider>().register(
+      context.read<AppState>().register(
             _nameController.text.trim(),
             _emailController.text.trim(),
             _passwordController.text,
@@ -55,25 +54,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
           );
       // SplashScreen rebuilds on the resulting auth state change and
       // swaps to the right dashboard — no manual navigation needed here.
-    } on FirebaseAuthException catch (e) {
-      setState(() => _errorMessage = _friendlyError(e.code));
     } catch (e) {
       setState(() => _errorMessage = 'Something went wrong. Try again.');
     } finally {
       if (mounted) setState(() => _isLoading = false);
-    }
-  }
-
-  String _friendlyError(String code) {
-    switch (code) {
-      case 'email-already-in-use':
-        return 'That email is already registered.';
-      case 'invalid-email':
-        return 'That email address looks invalid.';
-      case 'weak-password':
-        return 'Choose a stronger password (6+ characters).';
-      default:
-        return 'Registration failed. Please try again.';
     }
   }
 
@@ -107,7 +91,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   style: TextStyle(fontSize: 14, color: AppConfig.textMuted),
                 ),
                 const SizedBox(height: 28),
-
                 CustomTextField(
                   controller: _nameController,
                   hintText: 'Your full name',
@@ -155,7 +138,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Validators.confirmPassword(v, _passwordController.text),
                 ),
                 const SizedBox(height: 16),
-
                 const Text(
                   'I am a...',
                   style: TextStyle(
@@ -185,7 +167,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ],
                 ),
-
                 if (_errorMessage != null) ...[
                   const SizedBox(height: 12),
                   Container(
@@ -201,14 +182,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                 ],
-
                 const SizedBox(height: 24),
                 CustomButton(
                   label: 'Create Account',
                   onPressed: _handleRegister,
                   isLoading: _isLoading,
                 ),
-
                 const SizedBox(height: 16),
                 Center(
                   child: GestureDetector(

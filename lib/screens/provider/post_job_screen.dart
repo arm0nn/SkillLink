@@ -1,13 +1,11 @@
 // lib/screens/provider/post_job_screen.dart
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import '../../config/app_config.dart';
-import '../../models/job_model.dart';
-import '../../services/database_service.dart';
+import '../../providers/app_state.dart';
 import '../../utils/validators.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_textfield.dart';
-
 
 class PostJobScreen extends StatefulWidget {
   const PostJobScreen({super.key});
@@ -35,27 +33,13 @@ class _PostJobScreenState extends State<PostJobScreen> {
   Future<void> _handlePost() async {
     if (!_formKey.currentState!.validate()) return;
 
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Sign in to post a job')),
-      );
-      return;
-    }
-
     setState(() => _isSaving = true);
 
-    final job = JobModel(
-      id: '', // Firestore assigns this on add()
-      title: _titleController.text.trim(),
-      company: _companyController.text.trim(),
-      location: _locationController.text.trim(),
-      status: 'pending',
-      providerId: uid,
-    );
-
     try {
-      await DatabaseService().postJob(job);
+      context.read<AppState>().postJob(
+          title: _titleController.text.trim(),
+          company: _companyController.text.trim(),
+          location: _locationController.text.trim());
       if (mounted) {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
@@ -97,7 +81,8 @@ class _PostJobScreenState extends State<PostJobScreen> {
                 controller: _titleController,
                 hintText: 'e.g. Senior Flutter Developer',
                 labelText: 'Job Title',
-                validator: (v) => Validators.required(v, fieldName: 'Job title'),
+                validator: (v) =>
+                    Validators.required(v, fieldName: 'Job title'),
               ),
               const SizedBox(height: 16),
               CustomTextField(

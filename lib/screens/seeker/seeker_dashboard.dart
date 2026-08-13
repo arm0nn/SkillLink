@@ -2,14 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../config/app_config.dart';
-import '../../providers/auth_provider.dart';
+import '../../providers/app_state.dart';
 import '../shared/profile_screen.dart';
 import 'applications_screen.dart';
 import 'job_feed_screen.dart';
 
-// the main dashboard for job seekers  
+// the main dashboard for job seekers
 // uses a stateful widget to manage the selected tab index and update UI accordingly
-// switches between jobs feed, applications, and profile screens based on the selected tab  
+// switches between jobs feed, applications, and profile screens based on the selected tab
 class SeekerDashboard extends StatefulWidget {
   const SeekerDashboard({super.key});
 
@@ -21,7 +21,7 @@ class _SeekerDashboardState extends State<SeekerDashboard> {
   // tracks which tab is currently selected (0 = Jobs, 1 = Applications, 2 = Profile)
   int _tabIndex = 0;
 
-  // the screens corresponding to each index 
+  // the screens corresponding to each index
   final _tabs = const [
     JobFeedScreen(),
     ApplicationsScreen(),
@@ -89,7 +89,8 @@ class _SeekerDashboardState extends State<SeekerDashboard> {
         destinations: const [
           NavigationDestination(
               icon: Icon(Icons.work_outline_rounded),
-              selectedIcon: Icon(Icons.work_rounded, color: AppConfig.primaryBlue),
+              selectedIcon:
+                  Icon(Icons.work_rounded, color: AppConfig.primaryBlue),
               label: 'Jobs'),
           NavigationDestination(
               icon: Icon(Icons.description_outlined),
@@ -112,7 +113,7 @@ class _SeekerDashboardState extends State<SeekerDashboard> {
     return PreferredSize(
       preferredSize: const Size.fromHeight(kToolbarHeight),
       child: AppBar(
-        // hamburger menu button that opens the drawer on the left  
+        // hamburger menu button that opens the drawer on the left
         leading: Builder(
           builder: (ctx) => IconButton(
             icon: const Icon(Icons.menu_rounded, color: AppConfig.textDark),
@@ -136,7 +137,7 @@ class _SeekerDashboardState extends State<SeekerDashboard> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 12),
-            child: Consumer<AppAuthProvider>(
+            child: Consumer<AppState>(
               builder: (context, auth, _) {
                 return GestureDetector(
                   onTap: () {
@@ -220,7 +221,7 @@ class DrawerMenuItem {
 
 // REUSABLE APP DRAWER
 // shared hamburger drawer for both job seeker and job provider
-// Takes its menu items as data via [items], so each dashboard defines its own labels/icons/destinations 
+// Takes its menu items as data via [items], so each dashboard defines its own labels/icons/destinations
 class AppDrawer extends StatelessWidget {
   final List<DrawerMenuItem> items;
 
@@ -245,7 +246,7 @@ class AppDrawer extends StatelessWidget {
                   end: Alignment.bottomRight,
                 ),
               ),
-              child: Consumer<AppAuthProvider>(
+              child: Consumer<AppState>(
                 builder: (context, auth, _) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,7 +257,8 @@ class AppDrawer extends StatelessWidget {
                         // shows the user's name if logged in, otherwise there's a fallback message
                         auth.userProfile?.name ?? 'Find your dream job today',
                         style: TextStyle(
-                            color: Colors.white.withOpacity(0.85), fontSize: 12),
+                            color: Colors.white.withOpacity(0.85),
+                            fontSize: 12),
                       ),
                     ],
                   );
@@ -284,8 +286,9 @@ class AppDrawer extends StatelessWidget {
                         : AppConfig.textDark,
                   ),
                 ),
-                tileColor:
-                    item.isActive ? const Color(0xFFEFF6FF) : Colors.transparent,
+                tileColor: item.isActive
+                    ? const Color(0xFFEFF6FF)
+                    : Colors.transparent,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
                 contentPadding:
@@ -309,8 +312,8 @@ class AppDrawer extends StatelessWidget {
                 width: double.infinity,
                 child: OutlinedButton.icon(
                   onPressed: () async {
-                    Navigator.pop(context);          // close the drawer first
-                    await context.read<AppAuthProvider>().logout();
+                    Navigator.pop(context); // close the drawer first
+                    context.read<AppState>().logout();
                   },
                   icon: const Icon(Icons.logout_rounded, size: 18),
                   label: const Text('Log Out',

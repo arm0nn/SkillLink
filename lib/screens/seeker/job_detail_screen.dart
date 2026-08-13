@@ -1,13 +1,13 @@
 // lib/screens/seeker/job_detail_screen.dart
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import '../../config/app_config.dart';
 import '../../models/job_model.dart';
-import '../../services/database_service.dart';
+import '../../providers/app_state.dart';
 import '../../widgets/custom_button.dart';
 
 // displays the full details of a single job and allows the user to apply
-// the job data is obtained from the constructor 
+// the job data is obtained from the constructor
 class JobDetailScreen extends StatefulWidget {
   final JobModel job;
 
@@ -19,8 +19,6 @@ class JobDetailScreen extends StatefulWidget {
 
 class _JobDetailScreenState extends State<JobDetailScreen> {
   // service for database operations when applying for a job
-  final DatabaseService _db = DatabaseService();
-
   // to show a loading spinner on the apply button while the request is in progress
   bool _isApplying = false;
 
@@ -33,25 +31,12 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
   // checks for if the user is signed in, then calls the database service to create an application
   Future<void> _handleApply() async {
     // 1. ensures the user is signed in
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Sign in to apply for jobs')),
-      );
-      return;
-    }
-
     // 2. shows the loading state (disable button, show spinner)
     setState(() => _isApplying = true);
 
     try {
       // 3. call the database service to create the application document
-      await _db.applyToJob(
-        jobId: widget.job.id,
-        jobTitle: widget.job.title,
-        company: widget.job.company,
-        seekerId: uid,
-      );
+      context.read<AppState>().applyToJob(widget.job);
 
       // 4. once successful, update the UI and show a confirmation message
       if (mounted) {

@@ -38,8 +38,8 @@ class CustomButton extends StatelessWidget {
                 const SizedBox(width: 8),
               ],
               Text(label,
-                  style:
-                      const TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w700, fontSize: 15)),
             ],
           );
 
@@ -52,7 +52,8 @@ class CustomButton extends StatelessWidget {
             foregroundColor: AppConfig.primaryBlue,
             side: const BorderSide(color: AppConfig.primaryBlue),
             padding: const EdgeInsets.symmetric(vertical: 14),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
           child: child,
         ),
@@ -68,7 +69,8 @@ class CustomButton extends StatelessWidget {
           foregroundColor: Colors.white,
           elevation: 0,
           padding: const EdgeInsets.symmetric(vertical: 14),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
         child: child,
       ),

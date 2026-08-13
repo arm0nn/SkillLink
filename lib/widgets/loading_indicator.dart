@@ -17,7 +17,8 @@ class LoadingIndicator extends StatelessWidget {
           if (message != null) ...[
             const SizedBox(height: 12),
             Text(message!,
-                style: const TextStyle(color: AppConfig.textMuted, fontSize: 13)),
+                style:
+                    const TextStyle(color: AppConfig.textMuted, fontSize: 13)),
           ],
         ],
       ),

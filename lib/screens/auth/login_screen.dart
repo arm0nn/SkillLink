@@ -1,9 +1,8 @@
 // lib/screens/auth/login_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../../config/app_config.dart';
-import '../../providers/auth_provider.dart';
+import '../../providers/app_state.dart';
 import '../../utils/validators.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_textfield.dart';
@@ -41,34 +40,16 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
-      await context.read<AppAuthProvider>().login(
+      context.read<AppState>().login(
             _emailController.text.trim(),
             _passwordController.text,
           );
       // SplashScreen's Consumer picks up the auth state change and
       // navigates automatically — no manual Navigator.push needed here.
-    } on FirebaseAuthException catch (e) {
-      setState(() => _errorMessage = _friendlyError(e.code));
     } catch (e) {
       setState(() => _errorMessage = 'Something went wrong. Try again.');
     } finally {
       if (mounted) setState(() => _isLoading = false);
-    }
-  }
-
-  String _friendlyError(String code) {
-    switch (code) {
-      case 'user-not-found':
-        return 'No account found with that email.';
-      case 'wrong-password':
-      case 'invalid-credential':
-        return 'Incorrect email or password.';
-      case 'invalid-email':
-        return 'That email address looks invalid.';
-      case 'too-many-requests':
-        return 'Too many attempts. Try again later.';
-      default:
-        return 'Login failed. Please try again.';
     }
   }
 
@@ -111,7 +92,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: TextStyle(fontSize: 14, color: AppConfig.textMuted),
                 ),
                 const SizedBox(height: 32),
-
                 CustomTextField(
                   controller: _emailController,
                   hintText: 'you@example.com',
@@ -140,7 +120,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         setState(() => _obscurePassword = !_obscurePassword),
                   ),
                 ),
-
                 if (_errorMessage != null) ...[
                   const SizedBox(height: 12),
                   Container(
@@ -156,14 +135,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ],
-
                 const SizedBox(height: 24),
                 CustomButton(
                   label: 'Sign In',
                   onPressed: _handleLogin,
                   isLoading: _isLoading,
                 ),
-
                 const SizedBox(height: 20),
                 Center(
                   child: GestureDetector(
